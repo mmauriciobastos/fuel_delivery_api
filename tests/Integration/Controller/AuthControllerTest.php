@@ -16,18 +16,24 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AuthControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
+
     private EntityManagerInterface $entityManager;
+
     private UserRepository $userRepository;
+
     private RefreshTokenRepository $refreshTokenRepository;
+
     private Tenant $tenant;
+
     private User $testUser;
+
     private string $testPassword = 'Test123!@#';
 
     protected function setUp(): void
     {
         // Ensure kernel is shutdown before creating new client
         static::ensureKernelShutdown();
-        
+
         $this->client = static::createClient();
         $container = static::getContainer();
 
@@ -78,7 +84,7 @@ class AuthControllerTest extends WebTestCase
         }
 
         $this->entityManager->flush();
-        
+
         // Ensure kernel is shutdown to allow next test to boot cleanly
         static::ensureKernelShutdown();
 

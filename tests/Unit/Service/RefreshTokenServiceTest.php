@@ -14,7 +14,9 @@ use PHPUnit\Framework\TestCase;
 class RefreshTokenServiceTest extends TestCase
 {
     private RefreshTokenRepository $repository;
+
     private RefreshTokenService $service;
+
     private User $user;
 
     protected function setUp(): void
@@ -41,9 +43,9 @@ class RefreshTokenServiceTest extends TestCase
             ->method('save')
             ->with($this->callback(function (RefreshToken $token) {
                 return $token->getUser() === $this->user
-                    && $token->getToken() !== null
-                    && strlen($token->getToken()) === 128 // 64 bytes hex = 128 chars
-                    && $token->getValidUntil() !== null;
+                    && null !== $token->getToken()
+                    && 128 === \strlen($token->getToken()) // 64 bytes hex = 128 chars
+                    && null !== $token->getValidUntil();
             }));
 
         $refreshToken = $this->service->createRefreshToken($this->user);
@@ -51,7 +53,7 @@ class RefreshTokenServiceTest extends TestCase
         $this->assertInstanceOf(RefreshToken::class, $refreshToken);
         $this->assertSame($this->user, $refreshToken->getUser());
         $this->assertNotNull($refreshToken->getToken());
-        $this->assertEquals(128, strlen($refreshToken->getToken()));
+        $this->assertEquals(128, \strlen($refreshToken->getToken()));
     }
 
     public function testGetValidRefreshToken(): void
@@ -95,7 +97,7 @@ class RefreshTokenServiceTest extends TestCase
             ->expects($this->once())
             ->method('save')
             ->with($this->callback(function (RefreshToken $token) {
-                return $token->isRevoked() === true;
+                return true === $token->isRevoked();
             }));
 
         $this->service->revokeRefreshToken($refreshToken);

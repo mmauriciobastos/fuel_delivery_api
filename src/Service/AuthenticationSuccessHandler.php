@@ -36,7 +36,7 @@ readonly class AuthenticationSuccessHandler implements AuthenticationSuccessHand
         if (!$user instanceof UserInterface) {
             throw new \InvalidArgumentException('Token must contain a valid user');
         }
-        
+
         return $this->handleAuthenticationSuccess($user);
     }
 

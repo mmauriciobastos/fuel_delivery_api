@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 #[Route('/api/auth')]
 class AuthController extends AbstractController
@@ -62,7 +61,7 @@ class AuthController extends AbstractController
             // Validate refresh token
             $refreshToken = $this->refreshTokenService->getValidRefreshToken($refreshTokenString);
 
-            if ($refreshToken === null) {
+            if (null === $refreshToken) {
                 return new JsonResponse([
                     'error' => 'Invalid or expired refresh token',
                 ], Response::HTTP_UNAUTHORIZED);
@@ -71,7 +70,7 @@ class AuthController extends AbstractController
             $user = $refreshToken->getUser();
 
             // Ensure user exists and is active
-            if ($user === null || !$user->isActive()) {
+            if (null === $user || !$user->isActive()) {
                 return new JsonResponse([
                     'error' => 'User account is inactive or not found',
                 ], Response::HTTP_FORBIDDEN);
@@ -108,7 +107,7 @@ class AuthController extends AbstractController
         try {
             $user = $this->getUser();
 
-            if ($user === null) {
+            if (null === $user) {
                 return new JsonResponse([
                     'error' => 'User not authenticated',
                 ], Response::HTTP_UNAUTHORIZED);
@@ -122,7 +121,7 @@ class AuthController extends AbstractController
                 // Decode token to get JTI
                 try {
                     $tokenParts = explode('.', $jwtToken);
-                    if (count($tokenParts) === 3) {
+                    if (3 === \count($tokenParts)) {
                         $payload = json_decode(base64_decode($tokenParts[1]), true);
                         if (isset($payload['jti'], $payload['exp'])) {
                             $this->blacklistService->blacklist($payload['jti'], (int) $payload['exp']);
@@ -137,7 +136,7 @@ class AuthController extends AbstractController
             $data = json_decode($request->getContent(), true);
             if (isset($data['refresh_token'])) {
                 $refreshToken = $this->refreshTokenService->getValidRefreshToken($data['refresh_token']);
-                if ($refreshToken !== null) {
+                if (null !== $refreshToken) {
                     $this->refreshTokenService->revokeRefreshToken($refreshToken);
                 }
             }
