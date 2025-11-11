@@ -157,15 +157,15 @@ class Tenant
     }
 
     /**
-     * Check if tenant is active and can perform operations
+     * Check if tenant is active and can perform operations.
      */
     public function isOperational(): bool
     {
-        return $this->status !== null && $this->status->isOperational();
+        return null !== $this->status && $this->status->isOperational();
     }
 
     /**
-     * Activate the tenant
+     * Activate the tenant.
      */
     public function activate(): static
     {
@@ -175,7 +175,7 @@ class Tenant
     }
 
     /**
-     * Suspend the tenant
+     * Suspend the tenant.
      */
     public function suspend(): static
     {
@@ -185,7 +185,7 @@ class Tenant
     }
 
     /**
-     * Convert tenant to trial status
+     * Convert tenant to trial status.
      */
     public function convertToTrial(): static
     {

@@ -11,17 +11,17 @@ enum TenantStatus: string
     case TRIAL = 'trial';
 
     /**
-     * Get all available status values
+     * Get all available status values.
      *
      * @return array<string>
      */
     public static function values(): array
     {
-        return array_map(fn(self $status) => $status->value, self::cases());
+        return array_map(fn (self $status) => $status->value, self::cases());
     }
 
     /**
-     * Get human-readable label for the status
+     * Get human-readable label for the status.
      */
     public function label(): string
     {
@@ -33,10 +33,10 @@ enum TenantStatus: string
     }
 
     /**
-     * Check if tenant can perform operations
+     * Check if tenant can perform operations.
      */
     public function isOperational(): bool
     {
-        return in_array($this, [self::ACTIVE, self::TRIAL], true);
+        return \in_array($this, [self::ACTIVE, self::TRIAL], true);
     }
 }
