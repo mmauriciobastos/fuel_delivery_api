@@ -1,0 +1,25 @@
+{
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "github.copilot.advanced": {
+        "length": 500,
+        "temperature": 0.1,
+        "top_p": 1,
+        "inlineSuggestCount": 3,
+        "listCount": 10
+    },
+    "files.associations": {
+        "*.php": "php",
+        ".copilotrc.md": "markdown",
+        "copilot-instructions.md": "markdown"
+    },
+    "php.suggest.basic": false,
+    "php.validate.enable": true,
+    "emmet.includeLanguages": {
+        "php": "html"
+    }
+}
