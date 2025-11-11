@@ -365,4 +365,126 @@ class OrderServiceTest extends KernelTestCase
 - ❌ Hardcoded values (use configuration/enums)
 - ❌ Anemic domain models (entities with only getters/setters)
 
+## Git Workflow & Commit Strategy
+
+### Atomic Commits Principle
+**ALWAYS break down tasks into small, atomic commits**. Each commit should represent ONE logical change that can be reviewed and reverted independently.
+
+### When to Create Commits
+During task execution, **pause and create commits** at these milestones:
+
+1. **After Entity Creation**
+   - Entity class + repository created
+   - Example: `feat(entity): add Client entity with UUID and tenant relationship`
+
+2. **After Repository Methods**
+   - Custom repository methods added
+   - Example: `feat(repository): add tenant-aware queries for Client`
+
+3. **After Service Implementation**
+   - Service class with business logic complete
+   - Example: `feat(service): implement ClientService with CRUD operations`
+
+4. **After API Resource Configuration**
+   - API Platform resource configured
+   - Example: `feat(api): add Client API resource with normalization groups`
+
+5. **After Security/Validation**
+   - Security voters or validators added
+   - Example: `feat(security): add ClientVoter for tenant-scoped access control`
+
+6. **After Tests Pass**
+   - Unit or integration tests complete and passing
+   - Example: `test(client): add unit tests for Client entity validation`
+
+7. **After Configuration Changes**
+   - Config files updated (routes, services, etc.)
+   - Example: `chore(config): configure Client API routes and serialization`
+
+8. **After Documentation**
+   - Significant documentation added
+   - Example: `docs(client): add API documentation for Client endpoints`
+
+### Conventional Commit Format
+Use this format for ALL commits:
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+**Types:**
+- `feat`: New feature or functionality
+- `fix`: Bug fix
+- `refactor`: Code restructuring without behavior change
+- `test`: Adding or updating tests
+- `docs`: Documentation changes
+- `chore`: Maintenance tasks (dependencies, config)
+- `style`: Code style/formatting changes
+- `perf`: Performance improvements
+
+**Scopes:** Entity name, feature area, or component (e.g., `entity`, `service`, `api`, `auth`, `tenant`, `order`, `client`)
+
+**Examples:**
+```bash
+feat(entity): add Tenant entity with UUID primary key
+feat(repository): add TenantRepository with findBySlug method
+feat(service): implement TenantContext service for isolation
+test(tenant): add unit tests for tenant isolation logic
+fix(api): correct tenant filter application in Client queries
+refactor(order): extract status transition logic to OrderStateMachine
+docs(api): document authentication endpoints
+chore(deps): update API Platform to 4.1.2
+```
+
+### Workflow During Task Execution
+When implementing a task:
+
+1. **Plan the commits** - Break task into logical units
+2. **Implement one unit** - Focus on single concept
+3. **Verify it works** - Run code, execute tests
+4. **Create commit** - Use conventional format
+5. **Repeat** - Move to next unit
+
+**Example: Task "Create Client Entity and CRUD"**
+```bash
+# Commit 1: Entity
+git add src/Entity/Client.php
+git commit -m "feat(entity): add Client entity with tenant relationship"
+
+# Commit 2: Repository
+git add src/Repository/ClientRepository.php
+git commit -m "feat(repository): add ClientRepository with tenant-aware queries"
+
+# Commit 3: API Resource
+git add src/Entity/Client.php  # API Platform attributes
+git commit -m "feat(api): configure Client API resource with CRUD operations"
+
+# Commit 4: Service Layer
+git add src/Service/ClientService.php
+git commit -m "feat(service): implement ClientService for business logic"
+
+# Commit 5: Tests
+git add tests/Unit/Entity/ClientTest.php tests/Integration/Api/ClientApiTest.php
+git commit -m "test(client): add unit and integration tests"
+```
+
+### Pre-Commit Checklist
+Before each commit, verify:
+- ✅ Code has no syntax errors
+- ✅ Tests pass (if applicable)
+- ✅ Follows project conventions
+- ✅ Commit message is clear and descriptive
+- ✅ Only related changes included
+
+### Branch Strategy
+- **Feature branches**: `feature/task-###-description`
+- **Fix branches**: `fix/issue-description`
+- **Main branch**: Always deployable, protected
+
+**See `.github/commit-strategy.md` for detailed guidelines and examples.**
+
 Remember: This is a **multi-tenant SaaS platform** where **data isolation is critical**. Every piece of code must respect tenant boundaries and follow the established patterns for security and scalability.
