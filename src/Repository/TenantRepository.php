@@ -6,7 +6,6 @@ namespace App\Repository;
 
 use App\Entity\Tenant;
 use App\Enum\TenantStatus;
-use App\Service\TenantContext;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Types\UuidType;
@@ -21,22 +20,19 @@ use Symfony\Component\Uid\Uuid;
  * @extends ServiceEntityRepository<Tenant>
  *
  * @method Tenant|null find($id, $lockMode = null, $lockVersion = null)
- * @method Tenant|null findOneBy(array $criteria, array $orderBy = null)
- * @method Tenant[]    findAll()
- * @method Tenant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Tenant|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
+ * @method Tenant[] findAll()
+ * @method Tenant[] findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  */
 class TenantRepository extends ServiceEntityRepository
 {
-    private TenantContext $tenantContext;
-
-    public function __construct(ManagerRegistry $registry, TenantContext $tenantContext)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tenant::class);
-        $this->tenantContext = $tenantContext;
     }
 
     /**
-     * Save a tenant entity
+     * Save a tenant entity.
      */
     public function save(Tenant $tenant, bool $flush = true): void
     {
@@ -48,7 +44,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Remove a tenant entity
+     * Remove a tenant entity.
      */
     public function remove(Tenant $tenant, bool $flush = true): void
     {
@@ -60,7 +56,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find a tenant by subdomain
+     * Find a tenant by subdomain.
      */
     public function findBySubdomain(string $subdomain): ?Tenant
     {
@@ -68,7 +64,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find a tenant by UUID
+     * Find a tenant by UUID.
      */
     public function findById(Uuid $id): ?Tenant
     {
@@ -76,7 +72,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find all active tenants
+     * Find all active tenants.
      *
      * @return Tenant[]
      */
@@ -91,7 +87,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find all operational tenants (active or trial)
+     * Find all operational tenants (active or trial).
      *
      * @return Tenant[]
      */
@@ -106,7 +102,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find tenants by status
+     * Find tenants by status.
      *
      * @return Tenant[]
      */
@@ -121,7 +117,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Check if subdomain exists
+     * Check if subdomain exists.
      */
     public function subdomainExists(string $subdomain, ?Uuid $excludeId = null): bool
     {
@@ -130,7 +126,7 @@ class TenantRepository extends ServiceEntityRepository
             ->where('t.subdomain = :subdomain')
             ->setParameter('subdomain', strtolower($subdomain));
 
-        if ($excludeId !== null) {
+        if (null !== $excludeId) {
             $qb->andWhere('t.id != :excludeId')
                 ->setParameter('excludeId', $excludeId, UuidType::NAME);
         }
@@ -139,7 +135,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count tenants by status
+     * Count tenants by status.
      */
     public function countByStatus(TenantStatus $status): int
     {
@@ -152,7 +148,7 @@ class TenantRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find recently created tenants
+     * Find recently created tenants.
      *
      * @return Tenant[]
      */

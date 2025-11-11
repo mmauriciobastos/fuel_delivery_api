@@ -15,6 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * All entity repositories should extend this class to ensure tenant isolation.
  *
  * @template T of object
+ *
  * @template-extends ServiceEntityRepository<T>
  */
 abstract class BaseTenantRepository extends ServiceEntityRepository
@@ -33,7 +34,6 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
      *
      * @param string $alias The alias to use for the entity
      * @param string|null $indexBy The index to use
-     * @return QueryBuilder
      */
     public function createTenantQueryBuilder(string $alias, ?string $indexBy = null): QueryBuilder
     {
@@ -45,6 +45,7 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
      * The tenant filter automatically handles this.
      *
      * @param mixed $id The entity ID
+     *
      * @return object|null The entity or null if not found
      */
     public function findByIdAndTenant($id): ?object
@@ -69,8 +70,7 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
      *
      * @param array<string, mixed> $criteria
      * @param array<string, string>|null $orderBy
-     * @param int|null $limit
-     * @param int|null $offset
+     *
      * @return array<object>
      */
     public function findByForTenant(array $criteria, ?array $orderBy = null, ?int $limit = null, ?int $offset = null): array
@@ -83,7 +83,6 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
      * The tenant filter automatically handles this.
      *
      * @param array<string, mixed> $criteria
-     * @return object|null
      */
     public function findOneByForTenant(array $criteria): ?object
     {
@@ -95,7 +94,6 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
      * The tenant filter automatically handles this.
      *
      * @param array<string, mixed> $criteria
-     * @return int
      */
     public function countForTenant(array $criteria = []): int
     {
@@ -112,8 +110,6 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
 
     /**
      * Get the current tenant from the tenant context.
-     *
-     * @return Tenant|null
      */
     protected function getCurrentTenant(): ?Tenant
     {
@@ -122,8 +118,6 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
 
     /**
      * Check if a tenant context is set.
-     *
-     * @return bool
      */
     protected function hasTenant(): bool
     {
@@ -132,10 +126,6 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
 
     /**
      * Save an entity and flush changes.
-     *
-     * @param object $entity
-     * @param bool $flush
-     * @return object
      */
     public function save(object $entity, bool $flush = true): object
     {
@@ -150,10 +140,6 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
 
     /**
      * Remove an entity and flush changes.
-     *
-     * @param object $entity
-     * @param bool $flush
-     * @return void
      */
     public function remove(object $entity, bool $flush = true): void
     {
@@ -166,8 +152,6 @@ abstract class BaseTenantRepository extends ServiceEntityRepository
 
     /**
      * Flush all pending changes to the database.
-     *
-     * @return void
      */
     public function flush(): void
     {
