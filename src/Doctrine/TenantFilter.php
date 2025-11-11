@@ -34,8 +34,15 @@ class TenantFilter extends SQLFilter
             return '';
         }
 
-        // Get the tenant_id parameter from the filter
-        $tenantId = $this->getParameter('tenant_id');
+        // Try to get the tenant_id parameter from the filter
+        // During authentication, this parameter may not be set yet
+        try {
+            $tenantId = $this->getParameter('tenant_id');
+        } catch (\InvalidArgumentException $e) {
+            // Parameter not set - this can happen during authentication
+            // Return empty string to allow query without tenant filtering
+            return '';
+        }
 
         // Check if tenant_id is empty or null string
         if ('' === $tenantId || 'null' === $tenantId) {
