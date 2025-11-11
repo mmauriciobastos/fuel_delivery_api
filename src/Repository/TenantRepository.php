@@ -6,12 +6,18 @@ namespace App\Repository;
 
 use App\Entity\Tenant;
 use App\Enum\TenantStatus;
+use App\Service\TenantContext;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
 /**
+ * Repository for Tenant entity.
+ * Note: TenantRepository does not extend BaseTenantRepository because
+ * the Tenant entity itself is the root of the tenant hierarchy and
+ * does not have a tenant relationship.
+ *
  * @extends ServiceEntityRepository<Tenant>
  *
  * @method Tenant|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,9 +27,12 @@ use Symfony\Component\Uid\Uuid;
  */
 class TenantRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private TenantContext $tenantContext;
+
+    public function __construct(ManagerRegistry $registry, TenantContext $tenantContext)
     {
         parent::__construct($registry, Tenant::class);
+        $this->tenantContext = $tenantContext;
     }
 
     /**
