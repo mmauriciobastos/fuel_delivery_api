@@ -53,55 +53,55 @@ Creates **9 users** (3 per tenant) with different roles:
 | `premium.user@example.com`       | `user123`       | ROLE_USER        | Premium User       |
 
 ### 3. ClientFixtures
-Creates **9 clients** (3 per tenant) with complete billing addresses:
+Creates **9 clients** (3 per tenant) with complete billing addresses in **British Columbia, Canada**:
 
 #### Acme Fuel Company Clients
-1. **ABC Manufacturing Inc**
-   - Contact: John Smith (john.smith@abcmanufacturing.com)
-   - Phone: +1-555-1001
-   - Location: 123 Industrial Blvd, Chicago, IL 60601, USA
+1. **Vancouver Manufacturing Inc**
+   - Contact: John Smith (john.smith@vanmfg.ca)
+   - Phone: +1-604-555-1001
+   - Location: 1234 Industrial Way, Vancouver, BC V6B 1A1, Canada
 
-2. **XYZ Logistics LLC**
-   - Contact: Sarah Johnson (sarah.johnson@xyzlogistics.com)
-   - Phone: +1-555-1002
-   - Location: 456 Warehouse Way, Chicago, IL 60602, USA
+2. **Pacific Coast Logistics**
+   - Contact: Sarah Johnson (sarah.johnson@pclogistics.ca)
+   - Phone: +1-604-555-1002
+   - Location: 5678 Harbour Road, Vancouver, BC V6C 2B2, Canada
 
-3. **Tech Solutions Corp**
-   - Contact: Michael Brown (michael.brown@techsolutions.com)
-   - Phone: +1-555-1003
-   - Location: 789 Tech Park Dr, Chicago, IL 60603, USA
+3. **BC Tech Solutions Corp**
+   - Contact: Michael Brown (michael.brown@bctechsolutions.ca)
+   - Phone: +1-604-555-1003
+   - Location: 910 Innovation Drive, Burnaby, BC V5H 3C3, Canada
 
 #### Global Petro Distribution Clients
-1. **Mega Transport Services**
-   - Contact: Emily Davis (emily.davis@megatransport.com)
-   - Phone: +1-555-2001
-   - Location: 321 Highway 101, Los Angeles, CA 90001, USA
+1. **Surrey Transport Services**
+   - Contact: Emily Davis (emily.davis@surreytransport.ca)
+   - Phone: +1-604-555-2001
+   - Location: 2345 Highway 1, Surrey, BC V3T 4D4, Canada
 
-2. **Pacific Shipping Co**
-   - Contact: David Wilson (david.wilson@pacificshipping.com)
-   - Phone: +1-555-2002
-   - Location: 654 Port Avenue, Los Angeles, CA 90002, USA
+2. **Richmond Shipping Co**
+   - Contact: David Wilson (david.wilson@richmondshipping.ca)
+   - Phone: +1-604-555-2002
+   - Location: 6789 Port Way, Richmond, BC V7C 5E5, Canada
 
-3. **West Coast Distributors**
-   - Contact: Lisa Martinez (lisa.martinez@westcoastdist.com)
-   - Phone: +1-555-2003
-   - Location: 987 Distribution Center, Los Angeles, CA 90003, USA
+3. **Fraser Valley Distributors**
+   - Contact: Lisa Martinez (lisa.martinez@fvdist.ca)
+   - Phone: +1-604-555-2003
+   - Location: 3456 Distribution Centre Rd, Abbotsford, BC V2S 6F6, Canada
 
 #### Premium Energy Solutions Clients
-1. **Elite Manufacturing Group**
-   - Contact: Robert Taylor (robert.taylor@elitemfg.com)
-   - Phone: +1-555-3001
-   - Location: 111 Corporate Plaza, New York, NY 10001, USA
+1. **Victoria Elite Manufacturing**
+   - Contact: Robert Taylor (robert.taylor@vicelitemfg.ca)
+   - Phone: +1-250-555-3001
+   - Location: 1111 Corporate Plaza, Victoria, BC V8W 1G1, Canada
 
-2. **Premium Logistics Partners**
-   - Contact: Jennifer Anderson (jennifer.anderson@premiumlogistics.com)
-   - Phone: +1-555-3002
-   - Location: 222 Business Park, New York, NY 10002, USA
+2. **Kelowna Logistics Partners**
+   - Contact: Jennifer Anderson (jennifer.anderson@kelownalogistics.ca)
+   - Phone: +1-250-555-3002
+   - Location: 2222 Orchard Park Drive, Kelowna, BC V1Y 2H2, Canada
 
-3. **Metro Construction LLC**
-   - Contact: William Thomas (william.thomas@metroconstruction.com)
-   - Phone: +1-555-3003
-   - Location: 333 Builder Street, New York, NY 10003, USA
+3. **Nanaimo Construction Ltd**
+   - Contact: William Thomas (william.thomas@nanaimoconstruction.ca)
+   - Phone: +1-250-555-3003
+   - Location: 3333 Terminal Avenue, Nanaimo, BC V9S 3I3, Canada
 
 ## Testing with Fixtures
 
@@ -109,7 +109,7 @@ Creates **9 clients** (3 per tenant) with complete billing addresses:
 
 #### Login as Admin (Acme)
 ```bash
-curl -X POST http://localhost:8000/api/auth/login \
+curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "acme.admin@example.com",
@@ -119,7 +119,7 @@ curl -X POST http://localhost:8000/api/auth/login \
 
 #### Login as Dispatcher (Global)
 ```bash
-curl -X POST http://localhost:8000/api/auth/login \
+curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "global.dispatcher@example.com",
@@ -129,7 +129,7 @@ curl -X POST http://localhost:8000/api/auth/login \
 
 #### Login as Regular User (Premium)
 ```bash
-curl -X POST http://localhost:8000/api/auth/login \
+curl -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "premium.user@example.com",
@@ -142,26 +142,26 @@ curl -X POST http://localhost:8000/api/auth/login \
 1. **Login as Acme Admin** and get clients:
 ```bash
 # Login
-TOKEN=$(curl -s -X POST http://localhost:8000/api/auth/login \
+TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"acme.admin@example.com","password":"admin123"}' \
   | jq -r '.token')
 
 # Get clients (should only see Acme's 3 clients)
-curl -X GET http://localhost:8000/api/clients \
+curl -X GET http://localhost:8080/api/clients \
   -H "Authorization: Bearer $TOKEN"
 ```
 
 2. **Login as Global Admin** and get clients:
 ```bash
 # Login
-TOKEN=$(curl -s -X POST http://localhost:8000/api/auth/login \
+TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"global.admin@example.com","password":"admin123"}' \
   | jq -r '.token')
 
 # Get clients (should only see Global's 3 clients)
-curl -X GET http://localhost:8000/api/clients \
+curl -X GET http://localhost:8080/api/clients \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -170,33 +170,33 @@ curl -X GET http://localhost:8000/api/clients \
 #### Test Dispatcher Can Create Client
 ```bash
 # Login as dispatcher
-TOKEN=$(curl -s -X POST http://localhost:8000/api/auth/login \
+TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"acme.dispatcher@example.com","password":"dispatcher123"}' \
   | jq -r '.token')
 
 # Create client (should succeed)
-curl -X POST http://localhost:8000/api/clients \
+curl -X POST http://localhost:8080/api/clients \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/ld+json" \
   -d '{
     "companyName": "New Test Company",
     "contactName": "Test Contact",
     "email": "test@example.com",
-    "phone": "+1-555-9999"
+    "phone": "+1-604-555-9999"
   }'
 ```
 
 #### Test Regular User Cannot Create Client
 ```bash
 # Login as regular user
-TOKEN=$(curl -s -X POST http://localhost:8000/api/auth/login \
+TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"acme.user@example.com","password":"user123"}' \
   | jq -r '.token')
 
 # Try to create client (should return 403 Forbidden)
-curl -X POST http://localhost:8000/api/clients \
+curl -X POST http://localhost:8080/api/clients \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/ld+json" \
   -d '{
@@ -330,11 +330,12 @@ src/DataFixtures/
 
 - **3 Tenants** with unique subdomains
 - **9 Users** (3 per tenant) covering all roles
-- **9 Clients** (3 per tenant) with complete data
+- **9 Clients** (3 per tenant) with BC, Canada addresses
 - **All passwords**: `admin123`, `dispatcher123`, or `user123`
 - **Multi-tenancy isolation** enforced automatically
 - **RBAC permissions** ready for testing
+- **API Server**: Running on port **8080**
 
 ---
 **Last Updated:** 2024-11-11
-**Fixtures Version:** 1.0
+**Fixtures Version:** 1.1
