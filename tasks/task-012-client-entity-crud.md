@@ -1,6 +1,6 @@
 # Task ID: 012
 # Title: Create Client Entity with CRUD Operations
-# Status: pending
+# Status: completed
 # Dependencies: task-006
 # Priority: high
 

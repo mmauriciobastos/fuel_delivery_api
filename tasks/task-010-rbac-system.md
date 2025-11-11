@@ -1,6 +1,6 @@
 # Task ID: 010
 # Title: Implement Role-Based Access Control (RBAC)
-# Status: pending
+# Status: completed
 # Dependencies: task-009
 # Priority: high
 
