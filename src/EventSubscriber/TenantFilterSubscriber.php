@@ -53,12 +53,12 @@ class TenantFilterSubscriber implements EventSubscriberInterface
         // Enable the tenant filter
         try {
             $filter = $this->entityManager->getFilters()->enable('tenant_filter');
-            
+
             // Set the tenant_id parameter if a tenant is available
             if ($this->tenantContext->hasTenant()) {
                 $tenantId = $this->tenantContext->getCurrentTenantId();
                 $filter->setParameter('tenant_id', $tenantId);
-                
+
                 $this->logger->debug('Tenant filter enabled', [
                     'tenant_id' => $tenantId,
                     'route' => $route,
@@ -84,11 +84,12 @@ class TenantFilterSubscriber implements EventSubscriberInterface
      * Determine if the tenant filter should be skipped for a given route.
      *
      * @param string|null $route The route name
+     *
      * @return bool True if the filter should be skipped
      */
     private function shouldSkipTenantFilter(?string $route): bool
     {
-        if ($route === null) {
+        if (null === $route) {
             return false;
         }
 

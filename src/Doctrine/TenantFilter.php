@@ -25,7 +25,7 @@ class TenantFilter extends SQLFilter
     public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias): string
     {
         // Don't filter the Tenant entity itself
-        if ($targetEntity->getReflectionClass()->getName() === Tenant::class) {
+        if (Tenant::class === $targetEntity->getReflectionClass()->getName()) {
             return '';
         }
 
@@ -38,7 +38,7 @@ class TenantFilter extends SQLFilter
         $tenantId = $this->getParameter('tenant_id');
 
         // Check if tenant_id is empty or null string
-        if ($tenantId === '' || $tenantId === 'null') {
+        if ('' === $tenantId || 'null' === $tenantId) {
             // If no tenant is set, prevent all access by returning impossible condition
             // This is a security measure to prevent accidental data leaks
             return '1 = 0';
@@ -47,7 +47,7 @@ class TenantFilter extends SQLFilter
         // Get the tenant column name (usually tenant_id)
         $association = $targetEntity->getAssociationMapping('tenant');
         $joinColumns = $association['joinColumns'] ?? [];
-        
+
         if (empty($joinColumns)) {
             return '';
         }
@@ -55,6 +55,6 @@ class TenantFilter extends SQLFilter
         $tenantColumn = $joinColumns[0]['name'] ?? 'tenant_id';
 
         // Return the SQL condition to filter by tenant_id
-        return sprintf('%s.%s = %s', $targetTableAlias, $tenantColumn, $tenantId);
+        return \sprintf('%s.%s = %s', $targetTableAlias, $tenantColumn, $tenantId);
     }
 }
