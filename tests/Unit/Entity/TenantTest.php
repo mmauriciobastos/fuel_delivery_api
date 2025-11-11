@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class TenantTest extends TestCase
 {
-
     public function testTenantCreation(): void
     {
         $tenant = new Tenant();
