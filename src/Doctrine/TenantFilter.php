@@ -46,13 +46,18 @@ class TenantFilter extends SQLFilter
 
         // Get the tenant column name (usually tenant_id)
         $association = $targetEntity->getAssociationMapping('tenant');
-        $joinColumns = $association['joinColumns'] ?? [];
+        /**
+         * @var array<\Doctrine\ORM\Mapping\JoinColumnMapping> $joinColumns
+         *
+         * @phpstan-ignore property.notFound
+         */
+        $joinColumns = $association->joinColumns ?? [];
 
         if (empty($joinColumns)) {
             return '';
         }
 
-        $tenantColumn = $joinColumns[0]['name'] ?? 'tenant_id';
+        $tenantColumn = $joinColumns[0]->name ?? 'tenant_id';
 
         // Return the SQL condition to filter by tenant_id
         return \sprintf('%s.%s = %s', $targetTableAlias, $tenantColumn, $tenantId);
