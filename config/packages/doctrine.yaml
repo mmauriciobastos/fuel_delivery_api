@@ -1,22 +1,51 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
-
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '16'
-
+        
+        # PostgreSQL 16 server version
+        server_version: '16'
+        
+        # Character set
+        charset: utf8
+        
+        # Default table options
+        default_table_options:
+            charset: utf8
+            collate: utf8_unicode_ci
+        
+        # Enable profiling in debug mode
         profiling_collect_backtrace: '%kernel.debug%'
+        
+        # Use savepoints for nested transactions
         use_savepoints: true
+        
+        # Custom types for UUID support (Symfony Bridge provides the UuidType)
+        types:
+            uuid: Symfony\Bridge\Doctrine\Types\UuidType
+        
     orm:
+        # Auto-generate proxy classes in dev, disabled in prod
         auto_generate_proxy_classes: true
+        
+        # Enable lazy loading with ghost objects (Doctrine 3.x feature)
         enable_lazy_ghost_objects: true
+        
+        # Report fields where they are declared for better error messages
         report_fields_where_declared: true
+        
+        # Validate XML mapping files
         validate_xml_mapping: true
+        
+        # Use underscore naming strategy (e.g., createdAt -> created_at)
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        identity_generation_preferences:
-            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+        
+        # For UUID generation, we'll use custom generators in entities
+        # identity_generation_preferences is not needed as we'll define in each entity
+        
+        # Auto-mapping configuration
         auto_mapping: true
+        
+        # Entity mappings
         mappings:
             App:
                 type: attribute
@@ -24,8 +53,19 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+                
+        # Disable auto-mapping for controller resolver
         controller_resolver:
             auto_mapping: false
+            
+        # DQL functions (can be extended for custom PostgreSQL functions)
+        dql:
+            datetime_functions:
+                # Add custom datetime functions here if needed
+            string_functions:
+                # Add custom string functions here if needed
+            numeric_functions:
+                # Add custom numeric functions here if needed
 
 when@test:
     doctrine:

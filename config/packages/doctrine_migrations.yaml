@@ -1,6 +1,40 @@
 doctrine_migrations:
+    # Migrations directory and namespace
     migrations_paths:
         # namespace is arbitrary but should be different from App\Migrations
         # as migrations classes should NOT be autoloaded
         'DoctrineMigrations': '%kernel.project_dir%/migrations'
-    enable_profiler: false
+    
+    # Storage configuration for migration tracking
+    storage:
+        table_storage:
+            table_name: 'doctrine_migration_versions'
+            version_column_name: 'version'
+            version_column_length: 191
+            executed_at_column_name: 'executed_at'
+            execution_time_column_name: 'execution_time'
+    
+    # Organize migrations by year and month for better management
+    organize_migrations: false # Can be set to 'BY_YEAR', 'BY_YEAR_AND_MONTH'
+    
+    # Custom migration template (optional - can be added later)
+    # custom_template: ~
+    
+    # Check database platform (ensures migrations only run on PostgreSQL)
+    check_database_platform: true
+    
+    # Enable profiler in debug mode
+    enable_profiler: '%kernel.debug%'
+    
+    # All or nothing - wrap migrations in transaction (recommended for PostgreSQL)
+    all_or_nothing: true
+    
+    # Transactional behavior for individual migrations
+    transactional: true
+    
+    # Connection to use (default is the default connection)
+    # connection: default
+    
+    # Entity manager to use (default is the default entity manager)
+    # em: default
+
