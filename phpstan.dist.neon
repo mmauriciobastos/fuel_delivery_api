@@ -13,8 +13,22 @@ parameters:
         - tests/console-application.php
         - tests/object-manager.php
     
+    # Symfony configuration
+    symfony:
+        consoleApplicationLoader: tests/console-application.php
+    
+    # Doctrine configuration
+    doctrine:
+        repositoryClass: Doctrine\ORM\EntityRepository
+        objectManagerLoader: tests/object-manager.php
+    
     # Additional checks
     checkTooWideReturnTypesInProtectedAndPublicMethods: true
     checkUninitializedProperties: true
     checkDynamicProperties: true
     reportUnmatchedIgnoredErrors: false
+    
+    # Ignore Doctrine UUID generator service references
+    ignoreErrors:
+        - '#Cannot instantiate custom generator#'
+        - '#Environment variable not found#'
