@@ -1,4 +1,6 @@
 {
+    "name": "managepetro/fuel-delivery-api",
+    "description": "Multi-tenant SaaS backend API for fuel delivery management built with Symfony and API Platform",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
