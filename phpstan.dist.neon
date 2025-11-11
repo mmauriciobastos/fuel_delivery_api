@@ -1,0 +1,20 @@
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - src/
+    
+    # Exclude patterns
+    excludePaths:
+        - tests/bootstrap.php
+        - tests/console-application.php
+        - tests/object-manager.php
+    
+    # Additional checks
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+    checkUninitializedProperties: true
+    checkDynamicProperties: true
+    reportUnmatchedIgnoredErrors: false
