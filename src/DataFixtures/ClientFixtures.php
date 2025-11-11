@@ -20,25 +20,25 @@ class ClientFixtures extends Fixture implements DependentFixtureInterface
         $acmeTenant = $this->getReference(TenantFixtures::TENANT_ACME_REFERENCE, Tenant::class);
         $this->createClientsForTenant($manager, $acmeTenant, [
             [
-                'companyName' => 'ABC Manufacturing Inc',
+                'companyName' => 'Vancouver Manufacturing Inc',
                 'contactName' => 'John Smith',
-                'email' => 'john.smith@abcmanufacturing.com',
-                'phone' => '+1-555-1001',
-                'address' => ['123 Industrial Blvd', 'Chicago', 'IL', '60601', 'USA'],
+                'email' => 'john.smith@vanmfg.ca',
+                'phone' => '+1-604-555-1001',
+                'address' => ['1234 Industrial Way', 'Vancouver', 'BC', 'V6B 1A1', 'Canada'],
             ],
             [
-                'companyName' => 'XYZ Logistics LLC',
+                'companyName' => 'Pacific Coast Logistics',
                 'contactName' => 'Sarah Johnson',
-                'email' => 'sarah.johnson@xyzlogistics.com',
-                'phone' => '+1-555-1002',
-                'address' => ['456 Warehouse Way', 'Chicago', 'IL', '60602', 'USA'],
+                'email' => 'sarah.johnson@pclogistics.ca',
+                'phone' => '+1-604-555-1002',
+                'address' => ['5678 Harbour Road', 'Vancouver', 'BC', 'V6C 2B2', 'Canada'],
             ],
             [
-                'companyName' => 'Tech Solutions Corp',
+                'companyName' => 'BC Tech Solutions Corp',
                 'contactName' => 'Michael Brown',
-                'email' => 'michael.brown@techsolutions.com',
-                'phone' => '+1-555-1003',
-                'address' => ['789 Tech Park Dr', 'Chicago', 'IL', '60603', 'USA'],
+                'email' => 'michael.brown@bctechsolutions.ca',
+                'phone' => '+1-604-555-1003',
+                'address' => ['910 Innovation Drive', 'Burnaby', 'BC', 'V5H 3C3', 'Canada'],
             ],
         ]);
 
@@ -47,25 +47,25 @@ class ClientFixtures extends Fixture implements DependentFixtureInterface
         $globalTenant = $this->getReference(TenantFixtures::TENANT_GLOBAL_REFERENCE, Tenant::class);
         $this->createClientsForTenant($manager, $globalTenant, [
             [
-                'companyName' => 'Mega Transport Services',
+                'companyName' => 'Surrey Transport Services',
                 'contactName' => 'Emily Davis',
-                'email' => 'emily.davis@megatransport.com',
-                'phone' => '+1-555-2001',
-                'address' => ['321 Highway 101', 'Los Angeles', 'CA', '90001', 'USA'],
+                'email' => 'emily.davis@surreytransport.ca',
+                'phone' => '+1-604-555-2001',
+                'address' => ['2345 Highway 1', 'Surrey', 'BC', 'V3T 4D4', 'Canada'],
             ],
             [
-                'companyName' => 'Pacific Shipping Co',
+                'companyName' => 'Richmond Shipping Co',
                 'contactName' => 'David Wilson',
-                'email' => 'david.wilson@pacificshipping.com',
-                'phone' => '+1-555-2002',
-                'address' => ['654 Port Avenue', 'Los Angeles', 'CA', '90002', 'USA'],
+                'email' => 'david.wilson@richmondshipping.ca',
+                'phone' => '+1-604-555-2002',
+                'address' => ['6789 Port Way', 'Richmond', 'BC', 'V7C 5E5', 'Canada'],
             ],
             [
-                'companyName' => 'West Coast Distributors',
+                'companyName' => 'Fraser Valley Distributors',
                 'contactName' => 'Lisa Martinez',
-                'email' => 'lisa.martinez@westcoastdist.com',
-                'phone' => '+1-555-2003',
-                'address' => ['987 Distribution Center', 'Los Angeles', 'CA', '90003', 'USA'],
+                'email' => 'lisa.martinez@fvdist.ca',
+                'phone' => '+1-604-555-2003',
+                'address' => ['3456 Distribution Centre Rd', 'Abbotsford', 'BC', 'V2S 6F6', 'Canada'],
             ],
         ]);
 
@@ -74,25 +74,25 @@ class ClientFixtures extends Fixture implements DependentFixtureInterface
         $premiumTenant = $this->getReference(TenantFixtures::TENANT_PREMIUM_REFERENCE, Tenant::class);
         $this->createClientsForTenant($manager, $premiumTenant, [
             [
-                'companyName' => 'Elite Manufacturing Group',
+                'companyName' => 'Victoria Elite Manufacturing',
                 'contactName' => 'Robert Taylor',
-                'email' => 'robert.taylor@elitemfg.com',
-                'phone' => '+1-555-3001',
-                'address' => ['111 Corporate Plaza', 'New York', 'NY', '10001', 'USA'],
+                'email' => 'robert.taylor@vicelitemfg.ca',
+                'phone' => '+1-250-555-3001',
+                'address' => ['1111 Corporate Plaza', 'Victoria', 'BC', 'V8W 1G1', 'Canada'],
             ],
             [
-                'companyName' => 'Premium Logistics Partners',
+                'companyName' => 'Kelowna Logistics Partners',
                 'contactName' => 'Jennifer Anderson',
-                'email' => 'jennifer.anderson@premiumlogistics.com',
-                'phone' => '+1-555-3002',
-                'address' => ['222 Business Park', 'New York', 'NY', '10002', 'USA'],
+                'email' => 'jennifer.anderson@kelownalogistics.ca',
+                'phone' => '+1-250-555-3002',
+                'address' => ['2222 Orchard Park Drive', 'Kelowna', 'BC', 'V1Y 2H2', 'Canada'],
             ],
             [
-                'companyName' => 'Metro Construction LLC',
+                'companyName' => 'Nanaimo Construction Ltd',
                 'contactName' => 'William Thomas',
-                'email' => 'william.thomas@metroconstruction.com',
-                'phone' => '+1-555-3003',
-                'address' => ['333 Builder Street', 'New York', 'NY', '10003', 'USA'],
+                'email' => 'william.thomas@nanaimoconstruction.ca',
+                'phone' => '+1-250-555-3003',
+                'address' => ['3333 Terminal Avenue', 'Nanaimo', 'BC', 'V9S 3I3', 'Canada'],
             ],
         ]);
 
