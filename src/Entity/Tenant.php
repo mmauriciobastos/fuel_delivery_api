@@ -28,11 +28,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['subdomain'], message: 'This subdomain is already in use.')]
 #[ApiResource(
     operations: [
-        new GetCollection(),
-        new Post(),
-        new Get(),
-        new Patch(),
-        new Delete(),
+        new GetCollection(security: "is_granted('ROLE_ADMIN')"),
+        new Post(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('view', object)"),
+        new Patch(security: "is_granted('edit', object)"),
+        new Delete(security: "is_granted('ROLE_ADMIN')"),
     ],
     normalizationContext: ['groups' => ['tenant:read']],
     denormalizationContext: ['groups' => ['tenant:write']],

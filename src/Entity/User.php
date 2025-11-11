@@ -36,9 +36,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new GetCollection(security: "is_granted('ROLE_ADMIN')"),
         new Post(security: "is_granted('ROLE_ADMIN')"),
-        new Get(security: "is_granted('ROLE_USER') and object.getTenant() == user.getTenant()"),
-        new Patch(security: "is_granted('ROLE_ADMIN') or object == user"),
-        new Delete(security: "is_granted('ROLE_ADMIN')"),
+        new Get(security: "is_granted('view', object)"),
+        new Patch(security: "is_granted('edit', object) or object == user"),
+        new Delete(security: "is_granted('delete', object)"),
     ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
