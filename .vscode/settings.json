@@ -21,5 +21,6 @@
     "php.validate.enable": true,
     "emmet.includeLanguages": {
         "php": "html"
-    }
+    },
+    "intelephense.environment.phpVersion": "8.3.0"
 }
