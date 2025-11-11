@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -45,6 +48,19 @@ use Symfony\Component\Validator\Constraints as Assert;
     paginationEnabled: true,
     paginationItemsPerPage: 30
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'email' => 'partial',
+    'firstName' => 'partial',
+    'lastName' => 'partial',
+    'isActive' => 'exact',
+    'roles' => 'partial',
+])]
+#[ApiFilter(OrderFilter::class, properties: [
+    'email',
+    'firstName',
+    'lastName',
+    'createdAt',
+])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
