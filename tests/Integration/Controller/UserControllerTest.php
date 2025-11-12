@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\Controller;
 
+use App\Entity\Client;
 use App\Entity\Tenant;
 use App\Entity\User;
 use App\Enum\TenantStatus;
@@ -66,6 +67,11 @@ class UserControllerTest extends WebTestCase
         $users = $this->entityManager->getRepository(User::class)->findAll();
         foreach ($users as $user) {
             $this->entityManager->remove($user);
+        }
+
+        $clients = $this->entityManager->getRepository(Client::class)->findAll();
+        foreach ($clients as $client) {
+            $this->entityManager->remove($client);
         }
 
         $tenants = $this->entityManager->getRepository(Tenant::class)->findAll();
