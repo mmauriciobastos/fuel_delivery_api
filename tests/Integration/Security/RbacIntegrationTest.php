@@ -34,13 +34,27 @@ class RbacIntegrationTest extends WebTestCase
         $this->entityManager = $container->get(EntityManagerInterface::class);
         $this->passwordHasher = $container->get(UserPasswordHasherInterface::class);
 
-        // Create test tenants
-        $this->tenant1 = $this->createTenant('tenant1', 'Tenant 1');
-        $this->tenant2 = $this->createTenant('tenant2', 'Tenant 2');
+    // Create test tenants with unique subdomains
+    $uniqueSuffix = bin2hex(random_bytes(4));
+    $this->tenant1 = $this->createTenant('tenant1_' . $uniqueSuffix, 'Tenant 1');
+    $this->tenant2 = $this->createTenant('tenant2_' . $uniqueSuffix, 'Tenant 2');
     }
 
     protected function tearDown(): void
     {
+        // Remove all users using Doctrine
+        $userRepository = $this->entityManager->getRepository(User::class);
+        foreach ($userRepository->findAll() as $user) {
+            $this->entityManager->remove($user);
+        }
+        
+        // Remove all tenants using Doctrine
+        $tenantRepository = $this->entityManager->getRepository(Tenant::class);
+        foreach ($tenantRepository->findAll() as $tenant) {
+            $this->entityManager->remove($tenant);
+        }
+
+        $this->entityManager->flush();
         $this->entityManager->close();
         parent::tearDown();
         static::ensureKernelShutdown();
