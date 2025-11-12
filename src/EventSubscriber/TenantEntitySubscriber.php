@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use App\Entity\Client;
+use App\Entity\Location;
 use App\Service\TenantContext;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PrePersistEventArgs;
@@ -23,7 +24,7 @@ readonly class TenantEntitySubscriber
         $entity = $args->getObject();
 
         // Only process tenant-aware entities that don't already have a tenant set
-        if (!$entity instanceof Client) {
+        if (!$entity instanceof Client && !$entity instanceof Location) {
             return;
         }
 
