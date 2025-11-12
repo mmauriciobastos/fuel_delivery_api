@@ -506,8 +506,13 @@ class ClientApiTest extends WebTestCase
             ])
         );
 
-        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $response = $this->client->getResponse();
+        $data = json_decode($response->getContent(), true);
 
-        return $response['access_token'];
+        if (!isset($data['access_token'])) {
+            throw new \RuntimeException('Failed to get access token. Response: ' . $response->getContent());
+        }
+
+        return $data['access_token'];
     }
 }

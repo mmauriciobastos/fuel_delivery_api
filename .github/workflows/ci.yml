@@ -63,6 +63,11 @@ jobs:
           DATABASE_URL="postgresql://postgres:postgres@localhost:5432/fuel_delivery_test?serverVersion=16&charset=utf8"
           EOF
       
+      - name: Generate JWT keys
+        run: |
+          mkdir -p config/jwt
+          php bin/console lexik:jwt:generate-keypair --skip-if-exists
+      
       - name: Create database and schema
         run: |
           php bin/console doctrine:database:create --env=test --if-not-exists
